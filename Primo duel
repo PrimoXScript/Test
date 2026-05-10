@@ -1,5 +1,6 @@
 -- ============================================================
--- OPIUM.GG  v5.2  (
+-- FIVE HUB v1.0 - Black & White Theme
+-- Dual Rotating Borders (Black & White)
 -- ============================================================
 
 local Players         = game:GetService("Players")
@@ -79,12 +80,11 @@ local Steal = {
 -- PRESETS
 -- ============================================================
 local Presets = {}
-local PRESET_FILE = "OpiumGGPresets.json"
-local LAST_PRESET_FILE = "OpiumGGLastPreset.json"
-local CONFIG_FILE = "OpiumGGConfig.json"
+local PRESET_FILE = "FiveHubPresets.json"
+local LAST_PRESET_FILE = "FiveHubLastPreset.json"
+local CONFIG_FILE = "FiveHubConfig.json"
 
 local function buildPresetSnapshot()
-    -- Keybinds are intentionally excluded; they are saved in saveConfig separately
     return {
         normalSpeed   = State.normalSpeed,
         carrySpeed    = State.carrySpeed,
@@ -161,80 +161,80 @@ local presetNameBox=nil
 local rebuildPresetList
 
 -- ============================================================
--- COLORS
+-- BLACK & WHITE THEME COLORS
 -- ============================================================
 local C = {
-    winBg       = Color3.fromRGB(15, 15, 15),
-    winBorder   = Color3.fromRGB(35, 35, 35),
-    topBg       = Color3.fromRGB(15, 15, 15),
-    topTitle    = Color3.fromRGB(240,240,240),
-    topSub      = Color3.fromRGB(80, 80, 80),
-    topBtn      = Color3.fromRGB(60, 60, 60),
-    topBtnHov   = Color3.fromRGB(90, 90, 90),
-    topDivider  = Color3.fromRGB(30, 30, 30),
-    tabBarBg    = Color3.fromRGB(18, 18, 18),
+    winBg       = Color3.fromRGB(0, 0, 0),
+    winBorder   = Color3.fromRGB(255, 255, 255),
+    topBg       = Color3.fromRGB(0, 0, 0),
+    topTitle    = Color3.fromRGB(255, 255, 255),
+    topSub      = Color3.fromRGB(150, 150, 150),
+    topBtn      = Color3.fromRGB(200, 200, 200),
+    topBtnHov   = Color3.fromRGB(255, 255, 255),
+    topDivider  = Color3.fromRGB(40, 40, 40),
+    tabBarBg    = Color3.fromRGB(5, 5, 5),
     tabBarDiv   = Color3.fromRGB(30, 30, 30),
-    tabIdle     = Color3.fromRGB(100,100,100),
-    tabActive   = Color3.fromRGB(230,230,230),
-    tabActiveBg = Color3.fromRGB(26, 26, 26),
-    tabUnderline= Color3.fromRGB(200,200,200),
-    sectionTxt  = Color3.fromRGB(90, 90, 90),
-    sectionDiv  = Color3.fromRGB(28, 28, 28),
-    rowBg       = Color3.fromRGB(0,  0,  0),
-    rowBorder   = Color3.fromRGB(28, 28, 28),
-    rowLabel    = Color3.fromRGB(210,210,210),
-    rowSub      = Color3.fromRGB(85, 85, 85),
-    rowValue    = Color3.fromRGB(170,170,170),
-    rowHov      = Color3.fromRGB(22, 22, 22),
-    inputBg     = Color3.fromRGB(22, 22, 22),
-    inputBorder = Color3.fromRGB(40, 40, 40),
-    inputFocus  = Color3.fromRGB(120,120,120),
-    inputTxt    = Color3.fromRGB(220,220,220),
-    pillOff     = Color3.fromRGB(28, 28, 28),
+    tabIdle     = Color3.fromRGB(120, 120, 120),
+    tabActive   = Color3.fromRGB(255, 255, 255),
+    tabActiveBg = Color3.fromRGB(15, 15, 15),
+    tabUnderline= Color3.fromRGB(255, 255, 255),
+    sectionTxt  = Color3.fromRGB(100, 100, 100),
+    sectionDiv  = Color3.fromRGB(25, 25, 25),
+    rowBg       = Color3.fromRGB(0, 0, 0),
+    rowBorder   = Color3.fromRGB(30, 30, 30),
+    rowLabel    = Color3.fromRGB(230, 230, 230),
+    rowSub      = Color3.fromRGB(100, 100, 100),
+    rowValue    = Color3.fromRGB(200, 200, 200),
+    rowHov      = Color3.fromRGB(18, 18, 18),
+    inputBg     = Color3.fromRGB(15, 15, 15),
+    inputBorder = Color3.fromRGB(50, 50, 50),
+    inputFocus  = Color3.fromRGB(200, 200, 200),
+    inputTxt    = Color3.fromRGB(255, 255, 255),
+    pillOff     = Color3.fromRGB(25, 25, 25),
     pillOn      = Color3.fromRGB(60, 60, 60),
-    dotOff      = Color3.fromRGB(55, 55, 55),
-    dotOn       = Color3.fromRGB(210,210,210),
-    pillBorder  = Color3.fromRGB(42, 42, 42),
-    modeBtnBg   = Color3.fromRGB(22, 22, 22),
-    modeBtnBrd  = Color3.fromRGB(38, 38, 38),
-    modeBtnTxt  = Color3.fromRGB(90, 90, 90),
-    modeBtnActBg= Color3.fromRGB(45, 45, 45),
-    modeBtnActTx= Color3.fromRGB(210,210,210),
-    chipBg      = Color3.fromRGB(22, 22, 22),
-    chipBorder  = Color3.fromRGB(38, 38, 38),
-    chipTxt     = Color3.fromRGB(100,100,100),
-    btnBg       = Color3.fromRGB(28, 28, 28),
-    btnBorder   = Color3.fromRGB(44, 44, 44),
-    btnTxt      = Color3.fromRGB(180,180,180),
-    btnHov      = Color3.fromRGB(40, 40, 40),
-    stackBg     = Color3.fromRGB(14, 14, 14),
-    stackBrd    = Color3.fromRGB(28, 28, 28),
-    stackTxt    = Color3.fromRGB(90, 90, 90),
-    stackActBg  = Color3.fromRGB(28, 28, 28),
-    stackActBrd = Color3.fromRGB(110,110,110),
-    stackActTxt = Color3.fromRGB(210,210,210),
-    stackDot    = Color3.fromRGB(35, 35, 35),
-    stackDotOn  = Color3.fromRGB(150,150,150),
-    infoBg      = Color3.fromRGB(10, 10, 10),
-    infoBrd     = Color3.fromRGB(28, 28, 28),
-    infoTxt     = Color3.fromRGB(70, 70, 70),
-    infoVal     = Color3.fromRGB(160,160,160),
-    infoFill    = Color3.fromRGB(90, 90, 90),
-    accent      = Color3.fromRGB(65, 65, 65),
-    accentDim   = Color3.fromRGB(38, 38, 38),
-    presetBg    = Color3.fromRGB(18, 18, 18),
-    presetBrd   = Color3.fromRGB(38, 38, 38),
-    presetLoad  = Color3.fromRGB(50, 50, 50),
-    presetDel   = Color3.fromRGB(55, 25, 25),
-    delBrd      = Color3.fromRGB(80, 35, 35),
-    lockOn      = Color3.fromRGB(180,180,180),
-    divider     = Color3.fromRGB(28, 28, 28),
+    dotOff      = Color3.fromRGB(60, 60, 60),
+    dotOn       = Color3.fromRGB(255, 255, 255),
+    pillBorder  = Color3.fromRGB(50, 50, 50),
+    modeBtnBg   = Color3.fromRGB(10, 10, 10),
+    modeBtnBrd  = Color3.fromRGB(45, 45, 45),
+    modeBtnTxt  = Color3.fromRGB(100, 100, 100),
+    modeBtnActBg= Color3.fromRGB(40, 40, 40),
+    modeBtnActTx= Color3.fromRGB(255, 255, 255),
+    chipBg      = Color3.fromRGB(15, 15, 15),
+    chipBorder  = Color3.fromRGB(50, 50, 50),
+    chipTxt     = Color3.fromRGB(140, 140, 140),
+    btnBg       = Color3.fromRGB(20, 20, 20),
+    btnBorder   = Color3.fromRGB(55, 55, 55),
+    btnTxt      = Color3.fromRGB(200, 200, 200),
+    btnHov      = Color3.fromRGB(45, 45, 45),
+    stackBg     = Color3.fromRGB(8, 8, 8),
+    stackBrd    = Color3.fromRGB(40, 40, 40),
+    stackTxt    = Color3.fromRGB(120, 120, 120),
+    stackActBg  = Color3.fromRGB(25, 25, 25),
+    stackActBrd = Color3.fromRGB(255, 255, 255),
+    stackActTxt = Color3.fromRGB(255, 255, 255),
+    stackDot    = Color3.fromRGB(50, 50, 50),
+    stackDotOn  = Color3.fromRGB(255, 255, 255),
+    infoBg      = Color3.fromRGB(5, 5, 5),
+    infoBrd     = Color3.fromRGB(35, 35, 35),
+    infoTxt     = Color3.fromRGB(100, 100, 100),
+    infoVal     = Color3.fromRGB(200, 200, 200),
+    infoFill    = Color3.fromRGB(150, 150, 150),
+    accent      = Color3.fromRGB(80, 80, 80),
+    accentDim   = Color3.fromRGB(35, 35, 35),
+    presetBg    = Color3.fromRGB(12, 12, 12),
+    presetBrd   = Color3.fromRGB(45, 45, 45),
+    presetLoad  = Color3.fromRGB(60, 60, 60),
+    presetDel   = Color3.fromRGB(70, 30, 30),
+    delBrd      = Color3.fromRGB(100, 45, 45),
+    lockOn      = Color3.fromRGB(255, 255, 255),
+    divider     = Color3.fromRGB(30, 30, 30),
 }
 
 -- ============================================================
 -- CLEANUP
 -- ============================================================
-for _,name in pairs({"VyseSlottedGUI","VyseAsireGUI","VyseAsireHubV4","VyseAsireHubV5","VyseAsireHubV5_1","AsireHubV5_1","AsireHubV5_2","OpiumGGV5_2"}) do
+for _,name in pairs({"VyseSlottedGUI","VyseAsireGUI","VyseAsireHubV4","VyseAsireHubV5","VyseAsireHubV5_1","AsireHubV5_1","AsireHubV5_2","OpiumGGV5_2","FiveHub"}) do
     pcall(function() local o=game:GetService("CoreGui"):FindFirstChild(name); if o then o:Destroy() end end)
     pcall(function() local o=LP:WaitForChild("PlayerGui"):FindFirstChild(name); if o then o:Destroy() end end)
 end
@@ -243,7 +243,7 @@ end
 -- ROOT GUI
 -- ============================================================
 local gui=Instance.new("ScreenGui")
-gui.Name="OpiumGGV5_2"; gui.ResetOnSpawn=false; gui.DisplayOrder=10
+gui.Name="FiveHub"; gui.ResetOnSpawn=false; gui.DisplayOrder=10
 gui.IgnoreGuiInset=true; gui.ZIndexBehavior=Enum.ZIndexBehavior.Sibling
 gui.Parent=LP:WaitForChild("PlayerGui")
 
@@ -313,40 +313,77 @@ local function makeStackDraggable(frame,onTap)
 end
 
 -- ============================================================
--- MAIN WINDOW
+-- ROTATING BORDER FRAME FUNCTION
+-- Creates a frame with TWO rotating borders (Black & White)
+-- ============================================================
+local rotatingFrames = {}
+
+local function CreateRotatingFrame(parent, size, position, cornerRadius)
+    local frame = Instance.new("Frame", parent)
+    frame.Size = size
+    frame.Position = position
+    frame.BackgroundColor3 = C.winBg
+    frame.BackgroundTransparency = 0
+    frame.BorderSizePixel = 0
+    frame.ClipsDescendants = true
+    
+    local corner = Instance.new("UICorner", frame)
+    corner.CornerRadius = UDim.new(0, cornerRadius or 9)
+    
+    -- White rotating stroke
+    local whiteStroke = Instance.new("UIStroke", frame)
+    whiteStroke.Color = Color3.fromRGB(255, 255, 255)
+    whiteStroke.Thickness = 1.5
+    whiteStroke.Transparency = 0.3
+    whiteStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+    
+    local whiteGradient = Instance.new("UIGradient", whiteStroke)
+    whiteGradient.Color = ColorSequence.new(Color3.fromRGB(255, 255, 255))
+    whiteGradient.Transparency = NumberSequence.new({
+        NumberSequenceKeypoint.new(0, 1),
+        NumberSequenceKeypoint.new(0.4, 0),
+        NumberSequenceKeypoint.new(0.6, 0),
+        NumberSequenceKeypoint.new(1, 1)
+    })
+    whiteGradient.Rotation = 0
+    
+    -- Black rotating stroke (inner/outer effect)
+    local blackStroke = Instance.new("UIStroke", frame)
+    blackStroke.Color = Color3.fromRGB(0, 0, 0)
+    blackStroke.Thickness = 1.5
+    blackStroke.Transparency = 0.3
+    blackStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+    
+    local blackGradient = Instance.new("UIGradient", blackStroke)
+    blackGradient.Color = ColorSequence.new(Color3.fromRGB(0, 0, 0))
+    blackGradient.Transparency = NumberSequence.new({
+        NumberSequenceKeypoint.new(0, 1),
+        NumberSequenceKeypoint.new(0.4, 0),
+        NumberSequenceKeypoint.new(0.6, 0),
+        NumberSequenceKeypoint.new(1, 1)
+    })
+    blackGradient.Rotation = 180  -- Opposite rotation direction
+    
+    table.insert(rotatingFrames, {white = whiteGradient, black = blackGradient})
+    
+    return frame
+end
+
+-- ============================================================
+-- MAIN WINDOW (with rotating borders)
 -- ============================================================
 local WIN_W = 360
 local WIN_H = 440
 local TITLE_H = 38
 local TAB_H   = 34
 
-local mainOuter = Instance.new("Frame", gui)
-mainOuter.Name = "MainOuter"
-mainOuter.Size = UDim2.new(0, WIN_W, 0, WIN_H)
-mainOuter.Position = UDim2.new(0.5, -WIN_W/2, 0.5, -WIN_H/2)
-mainOuter.BackgroundTransparency = 1
-mainOuter.BorderSizePixel = 0
-mainOuter.ClipsDescendants = true
-mkCorner(mainOuter, 8)
-mkStroke(mainOuter, C.winBorder, 1)
+local mainOuter = CreateRotatingFrame(gui, UDim2.new(0, WIN_W, 0, WIN_H), UDim2.new(0.5, -WIN_W/2, 0.5, -WIN_H/2), 8)
 makeDraggable(mainOuter)
-
-local bgImg = Instance.new("ImageLabel", mainOuter)
-bgImg.Name = "BgImage"
-bgImg.Size = UDim2.new(1, 0, 1, 0)
-bgImg.Position = UDim2.new(0, 0, 0, 0)
-bgImg.BackgroundColor3 = C.winBg
-bgImg.BackgroundTransparency = 0
-bgImg.Image = "rbxassetid://9933991033"
-bgImg.ScaleType = Enum.ScaleType.Crop
-bgImg.ImageTransparency = 0
-bgImg.ZIndex = 0
-mkCorner(bgImg, 8)
 
 local bgOverlay = Instance.new("Frame", mainOuter)
 bgOverlay.Size = UDim2.new(1, 0, 1, 0)
 bgOverlay.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-bgOverlay.BackgroundTransparency = 0.45
+bgOverlay.BackgroundTransparency = 0.15
 bgOverlay.BorderSizePixel = 0
 bgOverlay.ZIndex = 1
 mkCorner(bgOverlay, 8)
@@ -357,62 +394,54 @@ mkCorner(bgOverlay, 8)
 local titleBar = Instance.new("Frame", mainOuter)
 titleBar.Size = UDim2.new(1, 0, 0, TITLE_H)
 titleBar.BackgroundColor3 = C.topBg
-titleBar.BackgroundTransparency = 1
+titleBar.BackgroundTransparency = 0
 titleBar.BorderSizePixel = 0
 titleBar.ZIndex = 5
 
-local logoBg = Instance.new("ImageLabel", titleBar)
-logoBg.Size = UDim2.new(0, 22, 0, 22)
-logoBg.Position = UDim2.new(0, 12, 0.5, -11)
-logoBg.BackgroundTransparency = 1
-logoBg.Image = LOGO_ID
-logoBg.ScaleType = Enum.ScaleType.Fit
-logoBg.ZIndex = 6
-
--- Title label with stone/engraved text style to match Opium image
 local titleLbl = Instance.new("TextLabel", titleBar)
 titleLbl.Size = UDim2.new(0, 120, 1, 0)
-titleLbl.Position = UDim2.new(0, 40, 0, 0)
+titleLbl.Position = UDim2.new(0, 12, 0, 0)
 titleLbl.BackgroundTransparency = 1
-titleLbl.Text = "Tivo hub | Duels"
+titleLbl.Text = "FIVE HUB | Duels"
 titleLbl.TextColor3 = C.topTitle
 titleLbl.Font = Enum.Font.Bangers
-titleLbl.TextSize = 13
+titleLbl.TextSize = 14
 titleLbl.TextXAlignment = Enum.TextXAlignment.Left
-titleLbl.TextStrokeTransparency = 0.6
+titleLbl.TextStrokeTransparency = 0.5
 titleLbl.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
 titleLbl.ZIndex = 6
 
+-- Close Button with "5"
 local closeBtn = Instance.new("TextButton", titleBar)
-closeBtn.Size = UDim2.new(0, 22, 0, 22)
-closeBtn.Position = UDim2.new(1, -32, 0.5, -11)
+closeBtn.Size = UDim2.new(0, 28, 0, 28)
+closeBtn.Position = UDim2.new(1, -36, 0.5, -14)
 closeBtn.BackgroundColor3 = C.modeBtnBg
 closeBtn.BorderSizePixel = 0
-closeBtn.Text = "×"
+closeBtn.Text = "5"
 closeBtn.TextColor3 = C.topBtn
 closeBtn.Font = Enum.Font.GothamBlack
 closeBtn.TextSize = 16
 closeBtn.ZIndex = 7
 mkCorner(closeBtn, 5)
 mkStroke(closeBtn, C.chipBorder, 1)
-closeBtn.MouseEnter:Connect(function() TweenService:Create(closeBtn, TweenInfo.new(0.1), {TextColor3 = Color3.fromRGB(220,80,80)}):Play() end)
+closeBtn.MouseEnter:Connect(function() TweenService:Create(closeBtn, TweenInfo.new(0.1), {TextColor3 = Color3.fromRGB(255, 100, 100)}):Play() end)
 closeBtn.MouseLeave:Connect(function() TweenService:Create(closeBtn, TweenInfo.new(0.1), {TextColor3 = C.topBtn}):Play() end)
 closeBtn.MouseButton1Click:Connect(function() State.guiVisible = false; mainOuter.Visible = false end)
 
 lockBtn = Instance.new("TextButton", titleBar)
-lockBtn.Size = UDim2.new(0, 22, 0, 22)
-lockBtn.Position = UDim2.new(1, -58, 0.5, -11)
+lockBtn.Size = UDim2.new(0, 28, 0, 28)
+lockBtn.Position = UDim2.new(1, -68, 0.5, -14)
 lockBtn.BackgroundColor3 = C.modeBtnBg
 lockBtn.BorderSizePixel = 0
-lockBtn.Text = "+"
+lockBtn.Text = "🔓"
 lockBtn.Font = Enum.Font.GothamBold
-lockBtn.TextSize = 11
+lockBtn.TextSize = 12
 lockBtn.ZIndex = 7
 mkCorner(lockBtn, 5)
 mkStroke(lockBtn, C.chipBorder, 1)
 lockBtn.MouseButton1Click:Connect(function()
     State.uiLocked = not State.uiLocked
-    lockBtn.Text = State.uiLocked and "ðŸ”’" or "ðŸ”“"
+    lockBtn.Text = State.uiLocked and "🔒" or "🔓"
 end)
 
 local titleDiv = Instance.new("Frame", mainOuter)
@@ -429,7 +458,7 @@ local tabBar = Instance.new("Frame", mainOuter)
 tabBar.Size = UDim2.new(1, 0, 0, TAB_H)
 tabBar.Position = UDim2.new(0, 0, 0, TITLE_H + 1)
 tabBar.BackgroundColor3 = C.tabBarBg
-tabBar.BackgroundTransparency = 1
+tabBar.BackgroundTransparency = 0
 tabBar.BorderSizePixel = 0
 tabBar.ZIndex = 5
 
@@ -453,7 +482,7 @@ local contentBg = Instance.new("Frame", mainOuter)
 contentBg.Size = UDim2.new(1, 0, 1, -CONTENT_Y)
 contentBg.Position = UDim2.new(0, 0, 0, CONTENT_Y)
 contentBg.BackgroundColor3 = C.winBg
-contentBg.BackgroundTransparency = 1
+contentBg.BackgroundTransparency = 0
 contentBg.BorderSizePixel = 0
 contentBg.ClipsDescendants = true
 contentBg.ZIndex = 2
@@ -469,8 +498,8 @@ local TAB_COUNT = #TABS
 for i, name in ipairs(TABS) do
     local btn = Instance.new("TextButton", tabBar)
     btn.Size = UDim2.new(1/TAB_COUNT, 0, 1, 0)
-    btn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    btn.BackgroundTransparency = (name == currentTab) and 0.82 or 1
+    btn.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    btn.BackgroundTransparency = (name == currentTab) and 0.85 or 1
     btn.BorderSizePixel = 0
     btn.Text = name
     btn.TextColor3 = (name == currentTab) and C.tabActive or C.tabIdle
@@ -491,7 +520,7 @@ for i, name in ipairs(TABS) do
 
     btn.MouseEnter:Connect(function()
         if name ~= currentTab then
-            TweenService:Create(btn, TweenInfo.new(0.1), {TextColor3 = Color3.fromRGB(170,170,170)}):Play()
+            TweenService:Create(btn, TweenInfo.new(0.1), {TextColor3 = Color3.fromRGB(200,200,200)}):Play()
         end
     end)
     btn.MouseLeave:Connect(function()
@@ -505,7 +534,8 @@ for i, name in ipairs(TABS) do
             local t = tabBtns[n]; local active = (n == name)
             TweenService:Create(t.btn, TweenInfo.new(0.14), {
                 TextColor3 = active and C.tabActive or C.tabIdle,
-                BackgroundColor3 = active and C.tabActiveBg or C.tabBarBg,
+                BackgroundColor3 = active and C.tabActiveBg or Color3.fromRGB(0,0,0),
+                BackgroundTransparency = active and 0.85 or 1,
             }):Play()
             t.underline.Visible = active
             if tabPages[n] then tabPages[n].Visible = active end
@@ -544,7 +574,7 @@ local function makeInputRow(label, default, onChange)
     local row = Instance.new("Frame", currentPage)
     row.Size = UDim2.new(1, 0, 0, 44)
     row.BackgroundColor3 = C.rowBg
-    row.BackgroundTransparency = 1
+    row.BackgroundTransparency = 0
     row.BorderSizePixel = 0
     row.LayoutOrder = LO()
 
@@ -586,7 +616,8 @@ end
 local function makeToggleRow(label, defaultOn, onToggle)
     local row = Instance.new("Frame", currentPage)
     row.Size = UDim2.new(1, 0, 0, 44)
-    row.BackgroundTransparency = 1; row.BorderSizePixel = 0; row.LayoutOrder = LO()
+    row.BackgroundTransparency = 0; row.BackgroundColor3 = C.rowBg
+    row.BorderSizePixel = 0; row.LayoutOrder = LO()
 
     local div = Instance.new("Frame", row)
     div.Size = UDim2.new(1, -28, 0, 1); div.Position = UDim2.new(0, 14, 1, -1)
@@ -642,7 +673,7 @@ local function getKeyDisplayName(kc)
         ButtonL1="LB",ButtonL2="LT",ButtonL3="LS",
         ButtonR1="RB",ButtonR2="RT",ButtonR3="RS",
         ButtonSelect="SEL",ButtonStart="STA",
-        DPadUp="Dâ†‘",DPadDown="Dâ†“",DPadLeft="Dâ†",DPadRight="Dâ†’",
+        DPadUp="D↑",DPadDown="D↓",DPadLeft="D←",DPadRight="D→",
         Thumbstick1="LS",Thumbstick2="RS",
     }
     if gpNames[n] then return gpNames[n] end
@@ -652,7 +683,8 @@ end
 local function makeKeybindRow(label, currentKey, onChanged, keyName)
     local row = Instance.new("Frame", currentPage)
     row.Size = UDim2.new(1, 0, 0, 44)
-    row.BackgroundTransparency = 1; row.BorderSizePixel = 0; row.LayoutOrder = LO()
+    row.BackgroundTransparency = 0; row.BackgroundColor3 = C.rowBg
+    row.BorderSizePixel = 0; row.LayoutOrder = LO()
 
     local div = Instance.new("Frame", row)
     div.Size = UDim2.new(1, -28, 0, 1); div.Position = UDim2.new(0, 14, 1, -1)
@@ -681,13 +713,12 @@ local function makeKeybindRow(label, currentKey, onChanged, keyName)
         if key then
             kbtn.Text = getKeyDisplayName(key)
             if onChanged then onChanged(key) end
-            -- Save config whenever a keybind changes
             task.spawn(function() if saveConfig then pcall(saveConfig) end end)
         end
     end
     kbtn.MouseButton1Click:Connect(function()
         if listening then stopL(nil); return end
-        listening = true; kbtn.Text = "Â·Â·Â·"; kbtn.TextColor3 = C.inputTxt
+        listening = true; kbtn.Text = "···"; kbtn.TextColor3 = C.inputTxt
         TweenService:Create(ks, TweenInfo.new(0.12), {Color=C.inputFocus}):Play()
         lconnKeyboard = UIS.InputBegan:Connect(function(inp)
             if not listening then return end
@@ -887,12 +918,11 @@ buildPage("Movement", function()
     makeKeybindRow("Auto Right", Keys.autoRight, function(k) Keys.autoRight = k end, "autoRight")
     makeGap(8)
 
-    -- â”€â”€ Duel Countdown section â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    -- Duel Countdown section
     makeSectionHeader("Duel Countdown")
     makeGap(2)
 
-    -- Direction selector (Left / Right)
-    local duelDir = "left" -- default
+    local duelDir = "left"
     local dirRow = Instance.new("Frame", currentPage)
     dirRow.Size = UDim2.new(1, 0, 0, 48)
     dirRow.BackgroundTransparency = 1; dirRow.BorderSizePixel = 0; dirRow.LayoutOrder = LO()
@@ -938,7 +968,6 @@ buildPage("Movement", function()
             }):Play()
         end
         duelDir = active:lower()
-        -- Update watcher direction if already running
         if State.duelCountdownEnabled then
             stopDuelCountdownWatcher()
             startDuelCountdownWatcher(duelDir)
@@ -947,7 +976,6 @@ buildPage("Movement", function()
     dirBtns["Left"].MouseButton1Click:Connect(function() setDirActive("Left") end)
     dirBtns["Right"].MouseButton1Click:Connect(function() setDirActive("Right") end)
 
-    -- Enable toggle
     makeToggleRow("Auto on Countdown End", false, function(on)
         State.duelCountdownEnabled = on
         if on then
@@ -983,18 +1011,15 @@ local function applyStackButtonsVisible(visible)
 end
 
 local function applyPreset(data)
-    -- Speeds
     if data.normalSpeed then State.normalSpeed=data.normalSpeed; if normalBox then normalBox.Text=tostring(data.normalSpeed) end end
     if data.carrySpeed  then State.carrySpeed=data.carrySpeed;   if carryBox  then carryBox.Text=tostring(data.carrySpeed)   end end
     if data.laggerSpeed then State.laggerSpeed=data.laggerSpeed; if laggerBox then laggerBox.Text=tostring(data.laggerSpeed)  end end
-    -- Steal
     if data.stealRadius then
         Steal.StealRadius=data.stealRadius; Steal.cachedPrompts={}; Steal.promptCacheTime=0
         if stealRadBox and not stealRadBox:IsFocused() then stealRadBox.Text=tostring(data.stealRadius) end
         if radTB and not radTB:IsFocused() then radTB.Text=tostring(data.stealRadius) end
     end
     if data.stealDuration then Steal.StealDuration=data.stealDuration end
-    -- Toggles (NO keybinds â€” those are managed by saveConfig/loadConfig only)
     if data.infJump~=nil       and setInfJump       then State.infJumpEnabled=data.infJump;           setInfJump(data.infJump) end
     if data.antiRagdoll~=nil   and setAntiRag       then State.antiRagdollEnabled=data.antiRagdoll;   setAntiRag(data.antiRagdoll); if data.antiRagdoll then startAntiRagdoll() else stopAntiRagdoll() end end
     if data.fpsBoost~=nil      and setFps           then State.fpsBoostEnabled=data.fpsBoost;         setFps(data.fpsBoost);         if data.fpsBoost then pcall(applyFPSBoost) end end
@@ -1026,7 +1051,7 @@ buildPage("Settings", function()
     local resetBtn = Instance.new("TextButton", rWrap)
     resetBtn.Size = UDim2.new(1, -28, 0, 32); resetBtn.Position = UDim2.new(0, 14, 0, 7)
     resetBtn.BackgroundColor3 = C.btnBg; resetBtn.BorderSizePixel = 0
-    resetBtn.Text = "â†º  Reset Button Positions"; resetBtn.TextColor3 = C.btnTxt
+    resetBtn.Text = "↺  Reset Button Positions"; resetBtn.TextColor3 = C.btnTxt
     resetBtn.Font = Enum.Font.GothamBold; resetBtn.TextSize = 12; resetBtn.ZIndex = 5
     mkCorner(resetBtn, 6); mkStroke(resetBtn, C.btnBorder, 1)
     resetBtn.MouseEnter:Connect(function() TweenService:Create(resetBtn,TweenInfo.new(0.1),{BackgroundColor3=C.btnHov}):Play() end)
@@ -1036,8 +1061,8 @@ buildPage("Settings", function()
             local wrapper = stackWrappers[def.key]
             if wrapper then TweenService:Create(wrapper,TweenInfo.new(0.35,Enum.EasingStyle.Back,Enum.EasingDirection.Out),{Position=getDefaultStackPos(i)}):Play() end
         end
-        resetBtn.Text = "âœ“  Positions Reset!"
-        task.delay(1.8, function() if resetBtn and resetBtn.Parent then resetBtn.Text = "â†º  Reset Button Positions" end end)
+        resetBtn.Text = "✓  Positions Reset!"
+        task.delay(1.8, function() if resetBtn and resetBtn.Parent then resetBtn.Text = "↺  Reset Button Positions" end end)
     end)
 
     makeGap(8)
@@ -1081,7 +1106,7 @@ buildPage("Settings", function()
         for i, p in ipairs(Presets) do if p.name == nm then Presets[i].data = buildPresetSnapshot(); found = true; break end end
         if not found then table.insert(Presets, {name=nm, data=buildPresetSnapshot()}) end
         savePresetsFile(); presetNameBox.Text = ""
-        savePBtn.Text = "âœ“ Saved!"; task.delay(1.5, function() savePBtn.Text = "+ Save Preset" end)
+        savePBtn.Text = "✓ Saved!"; task.delay(1.5, function() savePBtn.Text = "+ Save Preset" end)
         rebuildPresetList()
     end)
 
@@ -1107,8 +1132,8 @@ buildPage("Settings", function()
     local fw = Instance.new("Frame", currentPage); fw.Size = UDim2.new(1, 0, 0, 22)
     fw.BackgroundTransparency = 1; fw.BorderSizePixel = 0; fw.LayoutOrder = LO()
     local fl = Instance.new("TextLabel", fw); fl.Size = UDim2.new(1, 0, 1, 0)
-    fl.BackgroundTransparency = 1; fl.Text = "opium.gg  Â·  v5.2"
-    fl.TextColor3 = Color3.fromRGB(35,35,35); fl.Font = Enum.Font.Gotham; fl.TextSize = 10
+    fl.BackgroundTransparency = 1; fl.Text = "FIVE HUB  ·  v1.0"
+    fl.TextColor3 = Color3.fromRGB(45,45,45); fl.Font = Enum.Font.Gotham; fl.TextSize = 10
     fl.TextXAlignment = Enum.TextXAlignment.Center
 end)
 
@@ -1145,12 +1170,12 @@ rebuildPresetList = function()
         loadBtn.MouseLeave:Connect(function() TweenService:Create(loadBtn,TweenInfo.new(0.1),{BackgroundColor3=C.presetLoad}):Play() end)
         loadBtn.MouseButton1Click:Connect(function()
             applyPreset(preset.data); saveLastPresetName(preset.name)
-            loadBtn.Text = "âœ“"; task.delay(1.2, function() if loadBtn and loadBtn.Parent then loadBtn.Text = "Load" end end)
+            loadBtn.Text = "✓"; task.delay(1.2, function() if loadBtn and loadBtn.Parent then loadBtn.Text = "Load" end end)
         end)
         local delBtn = Instance.new("TextButton", row)
         delBtn.Size = UDim2.new(0, 34, 0, 26); delBtn.Position = UDim2.new(1, -48, 0.5, -13)
         delBtn.BackgroundColor3 = C.presetDel; delBtn.BorderSizePixel = 0
-        delBtn.Text = "âœ•"; delBtn.TextColor3 = Color3.fromRGB(200,80,80)
+        delBtn.Text = "✕"; delBtn.TextColor3 = Color3.fromRGB(200,80,80)
         delBtn.Font = Enum.Font.GothamBold; delBtn.TextSize = 11; delBtn.ZIndex = 9
         mkCorner(delBtn, 5)
         delBtn.MouseEnter:Connect(function() TweenService:Create(delBtn,TweenInfo.new(0.1),{BackgroundColor3=Color3.fromRGB(80,28,28)}):Play() end)
@@ -1165,24 +1190,30 @@ end
 for _, n in ipairs(TABS) do
     local t = tabBtns[n]; local active = (n == "Speed")
     t.btn.TextColor3 = active and C.tabActive or C.tabIdle
-    t.btn.BackgroundColor3 = active and C.tabActiveBg or C.tabBarBg
+    t.btn.BackgroundColor3 = active and C.tabActiveBg or Color3.fromRGB(0,0,0)
+    t.btn.BackgroundTransparency = active and 0.85 or 1
     t.underline.Visible = active
     if tabPages[n] then tabPages[n].Visible = active end
 end
 
 -- ============================================================
--- VBTN (floating logo toggle)
+-- VBTN (floating toggle with "5")
 -- ============================================================
 local vBtnFrame = Instance.new("Frame", gui)
-vBtnFrame.Name = "OpiumGGVBtn"; vBtnFrame.Size = UDim2.new(0, 36, 0, 36)
+vBtnFrame.Name = "FiveHubVBtn"; vBtnFrame.Size = UDim2.new(0, 36, 0, 36)
 vBtnFrame.Position = UDim2.new(1, -50, 0, 14)
 vBtnFrame.BackgroundColor3 = C.accent; vBtnFrame.BorderSizePixel = 0
 vBtnFrame.Active = true; vBtnFrame.ZIndex = 20
 mkCorner(vBtnFrame, 8); mkStroke(vBtnFrame, C.accentDim, 1)
-local vBtnImg = Instance.new("ImageLabel", vBtnFrame)
-vBtnImg.Size = UDim2.new(1, -6, 1, -6); vBtnImg.Position = UDim2.new(0, 3, 0, 3)
-vBtnImg.BackgroundTransparency = 1; vBtnImg.Image = LOGO_ID
-vBtnImg.ScaleType = Enum.ScaleType.Fit; vBtnImg.ZIndex = 21
+local vBtnImg = Instance.new("TextLabel", vBtnFrame)
+vBtnImg.Size = UDim2.new(1, 0, 1, 0)
+vBtnImg.BackgroundTransparency = 1
+vBtnImg.Text = "5"
+vBtnImg.TextColor3 = Color3.fromRGB(255, 255, 255)
+vBtnImg.Font = Enum.Font.GothamBlack
+vBtnImg.TextSize = 24
+vBtnImg.TextScaled = true
+vBtnImg.ZIndex = 21
 local vDragging,vDragInput,vDragStart,vStartPos=false,nil,nil,nil; local vMoved=false
 vBtnFrame.InputBegan:Connect(function(inp)
     if inp.UserInputType~=Enum.UserInputType.MouseButton1 and inp.UserInputType~=Enum.UserInputType.Touch then return end
@@ -1246,7 +1277,7 @@ local function makeStatMini(xOff, w, icon)
     iL.BackgroundTransparency = 1; iL.Text = icon; iL.TextColor3 = C.infoTxt
     iL.Font = Enum.Font.GothamBold; iL.TextSize = 9
     local vL = Instance.new("TextLabel", box); vL.Size = UDim2.new(1, -26, 1, 0); vL.Position = UDim2.new(0, 26, 0, 0)
-    vL.BackgroundTransparency = 1; vL.Text = "â€”"; vL.TextColor3 = C.infoVal
+    vL.BackgroundTransparency = 1; vL.Text = "—"; vL.TextColor3 = C.infoVal
     vL.Font = Enum.Font.GothamBlack; vL.TextSize = 9; vL.TextXAlignment = Enum.TextXAlignment.Left
     return vL
 end
@@ -1275,7 +1306,7 @@ do
         fc = fc + 1; local now = tick()
         if now - lastT >= 0.5 then
             local fps = math.floor(fc / (now - lastT)); fc = 0; lastT = now; fpsVal.Text = tostring(fps)
-            fpsVal.TextColor3 = fps >= 55 and Color3.fromRGB(180,180,180) or fps >= 30 and Color3.fromRGB(130,130,130) or Color3.fromRGB(80,80,80)
+            fpsVal.TextColor3 = fps >= 55 and Color3.fromRGB(200,200,200) or fps >= 30 and Color3.fromRGB(140,140,140) or Color3.fromRGB(90,90,90)
         end
     end)
     task.spawn(function()
@@ -1283,7 +1314,7 @@ do
             pcall(function()
                 local ping = math.floor(Stats.Network.ServerStatsItem["Data Ping"]:GetValue())
                 pingVal.Text = ping.."ms"
-                pingVal.TextColor3 = ping <= 80 and Color3.fromRGB(180,180,180) or ping <= 150 and Color3.fromRGB(130,130,130) or Color3.fromRGB(80,80,80)
+                pingVal.TextColor3 = ping <= 80 and Color3.fromRGB(200,200,200) or ping <= 150 and Color3.fromRGB(140,140,140) or Color3.fromRGB(90,90,90)
             end)
         end
     end)
@@ -1298,16 +1329,12 @@ do
 end
 
 -- ============================================================
--- STACK BUTTONS
+-- STACK BUTTONS (with rotating borders)
 -- ============================================================
 for i, def in ipairs(stackDefs) do
-    local btnFrame = Instance.new("Frame", gui)
+    local btnFrame = CreateRotatingFrame(gui, UDim2.new(0, BTN_W, 0, BTN_H), getDefaultStackPos(i), 8)
     btnFrame.Name = "StackBtn_"..def.key
-    btnFrame.Size = UDim2.new(0, BTN_W, 0, BTN_H)
-    btnFrame.Position = getDefaultStackPos(i)
-    btnFrame.BackgroundColor3 = C.stackBg; btnFrame.BorderSizePixel = 0
     btnFrame.Active = true; btnFrame.ZIndex = 15
-    mkCorner(btnFrame, 8); local bStroke = mkStroke(btnFrame, C.stackBrd, 1)
     stackWrappers[def.key] = btnFrame
 
     local nl = Instance.new("TextLabel", btnFrame)
@@ -1324,14 +1351,13 @@ for i, def in ipairs(stackDefs) do
     local function setOn(on)
         btnState = on
         TweenService:Create(btnFrame, TweenInfo.new(0.15), {BackgroundColor3 = on and C.stackActBg or C.stackBg}):Play()
-        TweenService:Create(bStroke, TweenInfo.new(0.15), {Color = on and C.stackActBrd or C.stackBrd}):Play()
         TweenService:Create(nl, TweenInfo.new(0.15), {TextColor3 = on and C.stackActTxt or C.stackTxt}):Play()
         TweenService:Create(dot, TweenInfo.new(0.15), {BackgroundColor3 = on and C.stackDotOn or C.stackDot}):Play()
     end
     stackBtnRefs[def.key] = {setOn = setOn}
 
     btnFrame.MouseEnter:Connect(function()
-        if not btnState then TweenService:Create(btnFrame,TweenInfo.new(0.1),{BackgroundColor3=Color3.fromRGB(20,20,20)}):Play() end
+        if not btnState then TweenService:Create(btnFrame,TweenInfo.new(0.1),{BackgroundColor3=Color3.fromRGB(18,18,18)}):Play() end
     end)
     btnFrame.MouseLeave:Connect(function()
         TweenService:Create(btnFrame,TweenInfo.new(0.1),{BackgroundColor3=btnState and C.stackActBg or C.stackBg}):Play()
@@ -1626,20 +1652,14 @@ end
 
 -- ============================================================
 -- DUEL COUNTDOWN WATCHER
--- Watches for the duel countdown GUI to disappear, then fires
--- whichever of autoLeft / autoRight was queued.
 -- ============================================================
 local Conns_duelWatch = nil
 local function startDuelCountdownWatcher(direction)
-    -- direction = "left" or "right"
     if Conns_duelWatch then Conns_duelWatch:Disconnect(); Conns_duelWatch=nil end
     State._duelWaiting = true
 
-    -- Helper: is a countdown GUI visible right now?
     local function countdownVisible()
         local pg = LP:FindFirstChild("PlayerGui"); if not pg then return false end
-        -- Murder Mystery 2 duel countdown typically lives in a ScreenGui with "Duel" or "Countdown" in the name
-        -- We also check for any TextLabel showing "3", "2", "1" near screen center
         for _, obj in ipairs(pg:GetDescendants()) do
             if obj:IsA("TextLabel") then
                 local t = obj.Text
@@ -1657,7 +1677,6 @@ local function startDuelCountdownWatcher(direction)
         return false
     end
 
-    -- Wait until countdown appears, then wait for it to disappear, then trigger
     local sawCountdown = false
     Conns_duelWatch = RunService.Heartbeat:Connect(function()
         if not State.duelCountdownEnabled then
@@ -1668,9 +1687,8 @@ local function startDuelCountdownWatcher(direction)
             sawCountdown = true
         end
         if sawCountdown and not visible then
-            -- Countdown just ended â€” fire movement
             Conns_duelWatch:Disconnect(); Conns_duelWatch=nil; State._duelWaiting=false
-            task.wait(0.05) -- tiny buffer
+            task.wait(0.05)
             if direction == "left" then
                 State.autoLeftEnabled=true
                 if stackBtnRefs.autoLeft then stackBtnRefs.autoLeft.setOn(true) end
@@ -1680,7 +1698,6 @@ local function startDuelCountdownWatcher(direction)
                 if stackBtnRefs.autoRight then stackBtnRefs.autoRight.setOn(true) end
                 startAutoRight()
             end
-            -- Re-arm watcher so it fires again next duel
             task.delay(2, function()
                 if State.duelCountdownEnabled then
                     startDuelCountdownWatcher(direction)
@@ -1694,6 +1711,7 @@ local function stopDuelCountdownWatcher()
     if Conns_duelWatch then Conns_duelWatch:Disconnect(); Conns_duelWatch=nil end
     State._duelWaiting = false
 end
+
 -- ============================================================
 startAntiRagdoll=function()
     if Conns.antiRag then return end
@@ -1809,7 +1827,7 @@ stopAutoSteal=function()
 end
 
 -- ============================================================
--- SAVE CONFIG  (keybinds + UI â€” separate from presets)
+-- SAVE CONFIG
 -- ============================================================
 saveConfig = function()
     local cfg = {
@@ -1820,7 +1838,6 @@ saveConfig = function()
         stealDuration = Steal.StealDuration,
         uiScale       = uiScaleObj and uiScaleObj.Scale or 1.0,
         stackButtonsHidden = State.stackButtonsHidden,
-        -- keybinds saved by name so they survive restarts
         speedKey     = Keys.speed.Name,
         autoLeftKey  = Keys.autoLeft.Name,
         autoRightKey = Keys.autoRight.Name,
@@ -1829,7 +1846,6 @@ saveConfig = function()
         laggerKey    = Keys.lagger.Name,
         tpDownKey    = Keys.tpDown.Name,
         aimbotKey    = Keys.aimbot.Name,
-        -- toggle states
         infJump          = State.infJumpEnabled,
         antiRagdoll      = State.antiRagdollEnabled,
         fpsBoost         = State.fpsBoostEnabled,
@@ -1842,33 +1858,27 @@ saveConfig = function()
 end
 
 -- ============================================================
--- LOAD CONFIG  (reads keybinds + UI state)
+-- LOAD CONFIG
 -- ============================================================
 loadConfig = function()
     local hasFile = false
     pcall(function() hasFile = _isfile(CONFIG_FILE) end)
-    -- fallback to old filenames
-    if not hasFile then pcall(function() hasFile = _isfile("OpiumGGConfig.json") end) end
+    if not hasFile then pcall(function() hasFile = _isfile("FiveHubConfig.json") end) end
     if not hasFile then return end
 
     local raw
     local ok = pcall(function() raw = _readfile(CONFIG_FILE) end)
-    if not ok or not raw then pcall(function() raw = _readfile("OpiumGGConfig.json") end) end
+    if not ok or not raw then pcall(function() raw = _readfile("FiveHubConfig.json") end) end
     if not raw then return end
 
     local cfg; local ok2 = pcall(function() cfg = HttpService:JSONDecode(raw) end)
     if not ok2 or not cfg then return end
 
-    -- Speeds
     if cfg.normalSpeed then State.normalSpeed = cfg.normalSpeed; if normalBox then normalBox.Text = tostring(cfg.normalSpeed) end end
     if cfg.carrySpeed  then State.carrySpeed  = cfg.carrySpeed;  if carryBox  then carryBox.Text  = tostring(cfg.carrySpeed)  end end
     if cfg.laggerSpeed then State.laggerSpeed = cfg.laggerSpeed; if laggerBox then laggerBox.Text = tostring(cfg.laggerSpeed) end end
-
-    -- Steal
     if cfg.stealRadius   then Steal.StealRadius   = cfg.stealRadius   end
     if cfg.stealDuration then Steal.StealDuration = cfg.stealDuration end
-
-    -- UI
     if cfg.uiScale and uiScaleObj then
         uiScaleObj.Scale = cfg.uiScale
         if uiScaleBox then uiScaleBox.Text = tostring(cfg.uiScale) end
@@ -1878,7 +1888,6 @@ loadConfig = function()
         if setHideButtonsToggle then setHideButtonsToggle(true) end
     end
 
-    -- Keybinds â€” restore into Keys table AND update button labels
     local function tryKey(field, keyTarget)
         if cfg[field] and Enum.KeyCode[cfg[field]] then
             local kc = Enum.KeyCode[cfg[field]]
@@ -1897,7 +1906,6 @@ loadConfig = function()
     tryKey("tpDownKey",   "tpDown")
     tryKey("aimbotKey",   "aimbot")
 
-    -- Toggles
     if cfg.autoStealEnabled then Steal.AutoStealEnabled = true; if setInstaGrab     then setInstaGrab(true)     end; pcall(startAutoSteal)  end
     if cfg.infJump          then State.infJumpEnabled = true;   if setInfJump       then setInfJump(true)       end end
     if cfg.antiRagdoll      then State.antiRagdollEnabled = true; if setAntiRag     then setAntiRag(true)       end; startAntiRagdoll()    end
@@ -1917,10 +1925,10 @@ local function setupChar(char)
 
     local head=char:FindFirstChild("Head")
     if head then
-        local oldBB=head:FindFirstChild("OpiumGGBB"); if oldBB then oldBB:Destroy() end
+        local oldBB=head:FindFirstChild("FiveHubBB"); if oldBB then oldBB:Destroy() end
 
         local bb=Instance.new("BillboardGui", head)
-        bb.Name="OpiumGGBB"
+        bb.Name="FiveHubBB"
         bb.Size=UDim2.new(0, 160, 0, 52)
         bb.StudsOffset=Vector3.new(0, 3, 0)
         bb.AlwaysOnTop=true
@@ -1941,7 +1949,7 @@ local function setupChar(char)
         lbl2.Size=UDim2.new(1, 0, 0, 24)
         lbl2.Position=UDim2.new(0, 0, 0, 28)
         lbl2.BackgroundTransparency=1
-        lbl2.Text="opium.gg"
+        lbl2.Text="FIVE HUB"
         lbl2.TextColor3=Color3.fromRGB(160, 160, 160)
         lbl2.Font=Enum.Font.GothamBold
         lbl2.TextScaled=true
@@ -1960,6 +1968,20 @@ end
 
 LP.CharacterAdded:Connect(setupChar)
 if LP.Character then task.spawn(function() setupChar(LP.Character) end) end
+
+-- ============================================================
+-- ROTATING BORDER ANIMATION
+-- ============================================================
+RunService.Heartbeat:Connect(function(dt)
+    for _, gradients in ipairs(rotatingFrames) do
+        if gradients.white and gradients.white.Parent then
+            gradients.white.Rotation = (gradients.white.Rotation + 90 * dt) % 360
+        end
+        if gradients.black and gradients.black.Parent then
+            gradients.black.Rotation = (gradients.black.Rotation - 90 * dt) % 360
+        end
+    end
+end)
 
 -- ============================================================
 -- RUNTIME LOOPS
@@ -2001,7 +2023,7 @@ RunService.RenderStepped:Connect(function()
     pcall(function()
         local head2 = LP.Character and LP.Character:FindFirstChild("Head")
         if head2 then
-            local bb2 = head2:FindFirstChild("OpiumGGBB")
+            local bb2 = head2:FindFirstChild("FiveHubBB")
             local sl = bb2 and bb2:FindFirstChild("SpeedBillLbl")
             if sl then
                 local hspd = Vector3.new(hrp.Velocity.X, 0, hrp.Velocity.Z).Magnitude
@@ -2071,11 +2093,8 @@ end)
 -- ============================================================
 loadPresetsFile()
 rebuildPresetList()
-
--- Load config first (restores keybinds + toggles)
 loadConfig()
 
--- Auto-load last used preset (speeds/toggles only, never touches keybinds)
 task.spawn(function()
     task.wait(0.3)
     local lastPresetName = loadLastPresetName()
@@ -2083,14 +2102,13 @@ task.spawn(function()
         for _, preset in ipairs(Presets) do
             if preset.name == lastPresetName then
                 applyPreset(preset.data)
-                print("[OpiumGG v5.2] Auto-loaded last preset: " .. lastPresetName)
+                print("[FIVE HUB v1.0] Auto-loaded last preset: " .. lastPresetName)
                 break
             end
         end
     end
 end)
 
--- Write config once on startup so the file always exists
 task.delay(1, function() pcall(saveConfig) end)
 
-print("[OpiumGG v5.2] Loaded")
+print("[FIVE HUB v1.0] Loaded - Black & White Theme with Dual Rotating Borders!")
