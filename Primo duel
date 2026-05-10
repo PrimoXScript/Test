@@ -11,7 +11,7 @@ local ContentProvider = game:GetService("ContentProvider")
 local Stats           = game:GetService("Stats")
 local LP              = Players.LocalPlayer
 
-local LOGO_ID = "rbxassetid://1117897387"
+local LOGO_ID = "rbxassetid://9933991033"
 task.spawn(function() pcall(function() ContentProvider:PreloadAsync({LOGO_ID}) end) end)
 
 local _isfile   = isfile   or (syn and syn.isfile)   or (getgenv and getgenv().isfile)   or function() return false end
@@ -337,7 +337,7 @@ bgImg.Size = UDim2.new(1, 0, 1, 0)
 bgImg.Position = UDim2.new(0, 0, 0, 0)
 bgImg.BackgroundColor3 = C.winBg
 bgImg.BackgroundTransparency = 0
-bgImg.Image = "rbxassetid://1117897387"
+bgImg.Image = "rbxassetid://9933991033"
 bgImg.ScaleType = Enum.ScaleType.Crop
 bgImg.ImageTransparency = 0
 bgImg.ZIndex = 0
@@ -374,7 +374,7 @@ local titleLbl = Instance.new("TextLabel", titleBar)
 titleLbl.Size = UDim2.new(0, 120, 1, 0)
 titleLbl.Position = UDim2.new(0, 40, 0, 0)
 titleLbl.BackgroundTransparency = 1
-titleLbl.Text = "Primo Duels"
+titleLbl.Text = "Tivo hub | Duels"
 titleLbl.TextColor3 = C.topTitle
 titleLbl.Font = Enum.Font.Bangers
 titleLbl.TextSize = 13
